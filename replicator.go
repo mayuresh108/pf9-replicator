@@ -7,8 +7,9 @@ import (
 	"log"
 	"os"
 	"strings"
+	"flag"
 
-	"github.com/platform9/pf9-replicator/grpc"
+	//"github.com/platform9/pf9-replicator/grpcServer"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -20,8 +21,14 @@ type ServerConnInfo struct {
 }
 
 func main() {
+	var remoteHost string
+	flag.StringVar(&remoteHost, "remotehost", "localhost", "Remove host IP")  // useage: --remotehost="string"
 
-	// Read params from config file, config fiel will include: target host IP, username, ssh key path, du_fqdn, list of commands to be executed on host
+	var sshKeyFile string
+	flag.StringVar(&sshKeyFile, "sshkey", "Not available", "SSH key")  // useage: --sshkey="/path/of/ssh/pub/key"
+
+
+	// Read params from config file, config file will include: target host IP, username, ssh key path, du_fqdn, list of commands to be executed on host
 	// 1. Extract embedded yaml, binary (client to copied, the client itself will have embedded yamls / binaries)
 	// 2. Scp binary over to the host, start it on the host with ssh
 	// 3. The client binary running on host will try to connect to this one, pass DU fqdn as argument to client
@@ -64,10 +71,10 @@ func main() {
 	fmt.Printf("Result: %s", output)
 	fmt.Printf("Error: %s", exitError)*/
 
-	go grpc.Server()
-	for {
+	go grpcServer()
+	/* for {
 		grpc.Client()
-	}
+	} */
 }
 
 func (c *ServerConnInfo) Socket() string {
