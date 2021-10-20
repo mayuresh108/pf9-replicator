@@ -1,6 +1,5 @@
-// ssh -l sameer sameer-dev.platform9.horse
-
-package grpc
+//package grpcClient
+package main
 
 var cmdData map[string]cmd
 

@@ -17,7 +17,8 @@
  */
 
 // Package main implements a client for Greeter service.
-package grpc
+//package grpcClient
+package main
 
 import (
 	"context"
@@ -32,7 +33,8 @@ import (
 )
 
 const (
-	address     = "localhost:50053"
+	//address     = "localhost:50053"
+	address     = "192.168.29.136:50053"
 	defaultName = "world"
 )
 
@@ -82,7 +84,7 @@ func execClientCmd(pr *pb.HelloReply) error {
 
 
 func main() {
-	cmdData = make(map[string]cmd)
+	cmdData = make(map[string]cmd)  // ideally, this should be a part of init() (or Init()) function.
 
 	if err := generateCmdData(); err != nil {
 		fmt.Printf("ERROR: %s\n", err.Error())
@@ -93,15 +95,18 @@ func main() {
 	conn, err := egrpc.Dial(address, egrpc.WithInsecure(), egrpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
+		os.Exit(1)
 	}
 	c := pb.NewGreeterClient(conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
+
 	pr, err := c.SayHello(ctx, &pb.HelloRequest{Name: "hello"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
+		os.Exit(1)
 	}
 
 	for {
