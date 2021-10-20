@@ -1,3 +1,7 @@
+// HOWTO execute:
+// ./replicator.bin --remotehost="10.128.144.156" --remoteuser="ubuntu" --sshkey="/Users/sameero/.ssh/id_rsa"
+
+
 package main
 
 import (

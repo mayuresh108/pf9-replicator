@@ -34,7 +34,7 @@ import (
 
 const (
 	//address     = "localhost:50053"
-	address     = "192.168.29.136:50053"
+	address     = "10.128.145.209:50053"
 	defaultName = "world"
 )
 
